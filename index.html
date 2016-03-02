@@ -1,0 +1,58 @@
+<!--specifies a language code, English-->
+<html lang="en">
+<head>
+    <!--specifies the character encoding for the HTML doc; 
+    character encoding for Unicode -->
+<meta charset="UTF-8">
+<title>Add A Record Form</title>
+</head>
+<body>
+<form action="insert.php" method="post">
+    <p>
+        <label for="Instructor_Name">Instructor Name:</label>
+        <input type="text" name="instructorname" id="InstructorName">
+    </p>
+    <p>
+        <label for="Location">Location:</label>
+        <input type="text" name="location" id="Location">
+    </p>
+    <p>
+        <label for="PhoneNumber">Phone Number:</label>
+        <input type="text" name="phonenumber" id="PhoneNumber">
+    </p>
+    <input type="submit" value="PHP">
+
+
+<!--AJAX below, httprequest -->
+    <script type="text/javascript"> 
+
+    function sendform(){
+         if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else {  // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function() {
+    console.log(xmlhttp.status);
+    console.log(xmlhttp.readyState);
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      alert(xmlhttp.responseText);
+    }
+    else if(xmlhttp.status==500)
+        alert("ERROR");
+  } 
+var instructorname=document.getElementById("InstructorName").value;
+var location=document.getElementById("Location").value;
+var phonenumber=document.getElementById("PhoneNumber").value;
+var parameters="&instructorname="+instructorname+"&location="+location+ "&phonenumber="+phonenumber;
+
+xmlhttp.open("POST", "insert.php" + parameters, true);
+//parameters being added to the database
+xmlhttp.send(null);
+    }</script>
+    <input type="button" onclick ="sendform()" value="AJAX">
+
+</form>
+</body>
+</html>

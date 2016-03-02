@@ -1,0 +1,42 @@
+<html>
+   <head>
+            
+      <script>
+         function showResult(str) {
+			
+            if (str.length == 0) {
+               document.getElementById("livesearch").innerHTML = "";
+               return;
+            }
+            
+            if (window.XMLHttpRequest) {
+               xmlhttp = new XMLHttpRequest();
+            }else {
+               xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            
+            xmlhttp.onreadystatechange = function() {
+				   console.log(xmlhttp.status);
+               console.log(xmlhttp.readyState);
+               if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                  console.log(xmlhttp.responseText);
+                  document.getElementById("livesearch").innerHTML = xmlhttp.responseText;     
+               }
+            }
+            
+            xmlhttp.open("GET","autocomplete.php?q="+str,true);
+            xmlhttp.send();
+         }
+      </script>
+      
+   </head>
+   <body>
+      
+      <form>
+         <label> Instructor Name (make sure to put professor infront of name) </label>
+         <input type = "text" list = "livesearch" size = "30" onkeyup = "showResult(this.value)">
+         <datalist id = "livesearch"></datalist>
+      </form>
+      
+   </body>
+</html>
